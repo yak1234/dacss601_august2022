@@ -22,14 +22,15 @@ website:
         href: https://github.com/DACSS/dacss601_august2022
         aria-label: GitHub
 
-execute:
+execution:
   freeze: auto
 
 
 format:
   html:
-    theme:
-      light: flatly
-      dark: darkly
-    css: styles.css
+    mainfont: Open Sans
+    linkcolor: "#881c1c"
     toc: true
+    theme: 
+      light: [flatly, styles.scss]
+      dark: [darkly, styles.scss]
