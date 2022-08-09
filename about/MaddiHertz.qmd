@@ -1,6 +1,6 @@
 ---
 title: "Maddi Hertz"
-image: MaddiHertz.jpeg
+image: images/MaddiHertz.jpeg
 about:
   template: solana
   image-width: 15em

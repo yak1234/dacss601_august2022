@@ -1,11 +1,11 @@
 ---
 title: "Octocat Student"
-image: images/OctocatStudent.jpeg
+image: images/OctocatStudent.jpg
 about:
   template: solana
   image-width: 15em
   image-shape: round
-  image: images/OctocatStudent.jpeg
+  image: images/OctocatStudent.jpg
   links:
     - icon: github
       text: Github
