@@ -9,7 +9,7 @@ about:
   links:
     - icon: github
       text: Github
-      href: https://github.com/DACSS
+      href: https://github.com/Njani01886/dacss601_august2022
 ---
 
 
