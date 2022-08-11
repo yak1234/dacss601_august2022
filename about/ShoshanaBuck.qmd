@@ -1,26 +1,16 @@
 ---
 title: "Shoshana Buck"
-image: YourName.jpeg
+image: images/ShoshanaBuck.jpeg
 about:
   template: solana
   image-width: 15em
   image-shape: round
-  image: images/YourName.jpeg
+  image: images/ShoshanaBuck.jpeg
   links:
     - icon: github
       text: Github
-      href: https://github.com/DACSS
+      href: https://github.com/shoshanamb
 ---
-
-##Instructions
-
--   save a copy of this document as *FirstLast.qmd*
--   replace *Your Name* in yaml header with your first and last name
--   pick an image (jpeg, png) to use and put it in the same folder as this document
--   replace image names in yaml header
--   replace github user name (if you have one, otherwise we will set one up next week)
--   fill in information below, as appropriate
--   remove these instructions and render!
 
 ## Education/Work Background
 
@@ -28,7 +18,7 @@ I spent my freshman year of undergrad at Simmons University in Boston and then i
 
 ## R experience
 
-I have very limited amount of experience with R. I took a sociology course about data collection and analysis, which introduced me to research design and how data is obtained and analyzed. I used R for my final research which made me interested to learn and use R more.
+I have very limited experience with R. I took a sociology course about data collection and analysis, which introduced me to research design and how data is obtained and analyzed. I used R for my final research which made me interested to learn and use R more.
 
 ## Research interests
 
@@ -36,10 +26,11 @@ Some of my research interests include digital inequalities, media effects especi
 
 ## Hometown
 
-I am originally from Framingham Massachusetts.
+Framingham, Massachusetts.
 
 ## Hobbies
 
 I like to go to the beach, hang out with my family and friends, take my dog on walks, and listen to live music.
 
 ## Fun fact
+A fun fat about me is that my first ever concert that I went to was the Cheetah Girls and Vanessa Hudgens.
