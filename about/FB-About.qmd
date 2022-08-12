@@ -1,0 +1,32 @@
+---
+title: "Felix Betancourt"
+image: images/FB-Pic.jpeg
+about:
+  template: solana
+  image-width: 15em
+  image-shape: round
+  image: images/FB-Pic.jpeg
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/fbetanco/dacss601_august2022
+---
+
+## Education/Work Background
+Doggie teaching assistant
+DACSS support dog
+
+## R experience
+lying around while other people code
+
+## Research interests
+dog treat allocations, dog walk queueing theory
+
+## Hometown
+Amherst, MA
+
+## Hobbies
+playing ball, long walks, rolling in the grass
+
+## Fun fact
+I love Bacon Balls.
