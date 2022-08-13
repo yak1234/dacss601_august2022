@@ -9,7 +9,7 @@ about:
   links:
     - icon: github
       text: Github
-      href: https://github.com/apujary
+      href: https://github.com/apujary 
 ---
 
 ## Education/Work Background
@@ -22,7 +22,7 @@ about:
 
 ## R experience
 
-Elementary
+I've taken the Coursera courses 'The Data Scientist's Toolbox' and 'R Programming' before joining DACSS.
 
 ## Research interests
 
