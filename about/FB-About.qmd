@@ -1,11 +1,11 @@
 ---
 title: "Felix Betancourt"
-image: images/FB-Pic.jpeg
+image: images/FB-Pic.jpg
 about:
   template: solana
   image-width: 15em
   image-shape: round
-  image: images/FB-Pic.jpeg
+  image: images/FB-Pic.jpg
   links:
     - icon: github
       text: Github

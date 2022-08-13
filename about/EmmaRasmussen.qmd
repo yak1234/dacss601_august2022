@@ -1,11 +1,11 @@
 ---
 title: "Emma Rasmussen"
-image: EmmaRasmussen.jpegs
+image: images/EmmaRasmussen.jpeg
 about:
   template: solana
   image-width: 15em
   image-shape: round
-  image: images/YourName.jpeg
+  image: images/EmmaRasmussen.jpeg
   links:
     - icon: github
       text: Github

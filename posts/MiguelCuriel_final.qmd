@@ -136,9 +136,9 @@ Unfold the code chunk below to observe all of the R code corresponding to the op
 
 ```{r warning=F, message=F}
 #set working directory and read in raw datasets
-setwd("/Users/mcurielinteros.ai/Documents/UMass/dacss601_august2022/posts/_data")
-social_media <- read_csv("GWI_social media use by country_2019.csv")
-mental_health <- read_csv("IMHE_mental disorders by country_2019.csv")
+#setwd("/Users/mcurielinteros.ai/Documents/UMass/dacss601_august2022/posts/_data")
+social_media <- read_csv("_data/GWI_social media use by country_2019.csv")
+mental_health <- read_csv("_data/IMHE_mental disorders by country_2019.csv")
 
 #read and wrangle mental health data
 mental_health <- mental_health %>%
