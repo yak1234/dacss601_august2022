@@ -1,11 +1,11 @@
  ---
 title: "Shoshana Buck"
-image: ShoshanaBuck.jpeg
+image: images/ShoshanaBuck.jpg
 about:
   template: solana
   image-width: 15em
   image-shape: round
-  image: images/ShoshanaBuck.jpeg
+  image: images/ShoshanaBuck.jpg
   links:
     - icon: github
       text: Github
