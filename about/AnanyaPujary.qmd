@@ -14,11 +14,7 @@ about:
 
 ## Education/Work Background
 
-|                                    Degree                                    |               Institution                |
-|:----------------------------------------------------------------------------:|:----------------------------------------:|
-|       Post-Graduate Diploma in Interdisciplinary Studies and Research        |  FLAME University, India *(2021-2022)*   |
-|        Bachelor of Arts in Psychology and Literary & Cultural Studies        |  FLAME University, India *(2018-2021)*   |
-| High School Diploma (Physics, Chemistry, Mathematics, Informatics Practices) | Birla Public School, Qatar *(2009-2018)* |
+I received a Bachelor of Arts degree in Psychology with a minor in Literary and Cultural Studies, and a Post-Graduate Diploma in Interdisciplinary Studies and Research from FLAME University, India. I learnt Python in some courses I'd taken, and have some experience with SQL and Java NetBeans from high school too.
 
 ## R experience
 
