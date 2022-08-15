@@ -1,26 +1,16 @@
 ---
-title: "Your Name"
-image: images/AkhileshKumar.jpeg
+title: "Akhilesh Kumar"
+image: images/AkhleshKumar.jpeg
 about:
   template: solana
   image-width: 15em
   image-shape: round
-  image: images/AkhileshKumar.jpeg
+  image: images/AkhleshKumar.jpeg
   links:
     - icon: github
       text: Github
       href: https://github.com/akhilesh0702
 ---
-
-##Instructions
-
-  - save a copy of this document as *FirstLast.qmd* 
-  - replace *Your Name* in yaml header with your first and last name
-  - pick an image (jpeg, png) to use and put it in the same folder as this document
-  - replace image names in yaml header
-  - replace github user name (if you have one, otherwise we will set one up next week)
-  - fill in information below, as appropriate
-  - remove these instructions and render!
 
 ## Education/Work Background
 
