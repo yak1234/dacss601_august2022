@@ -23,37 +23,58 @@ library(tidyverse)
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 ```
 
-## Challenge Overview
-
-Today's challenge is to
-
-1)  read in a dataset, and
-
-2)  describe the dataset using both words and any supporting information (e.g., tables, etc)
-
-## Read in the Data
-
-Read in one (or more) of the following data sets, using the correct R package and command.
-
--   railroad_2012_clean_county.csv ⭐
--   birds.csv ⭐⭐
--   FAOstat\*.csv ⭐⭐
--   wild_bird_data.xlsx ⭐⭐⭐
--   StateCounty2012.xlsx ⭐⭐⭐⭐
-
-Find the `_data` folder, located inside the `posts` folder. Then you can read in the data, using either one of the `readr` standard tidy read commands, or a specialized package such as `readxl`.
 
 ```{r}
-
+#1st dataset Railroad_2012_clean_county
+library(readr)
+railroad_2012_clean_county <- read_csv("posts/_data/railroad_2012_clean_county.csv")
+view(railroad_2012_clean_county)
+#2nd dataset birds
+birds <- read_csv("posts/_data/birds.csv")
+View(birds)
 ```
-
-Add any comments or documentation as needed. More challenging data sets may require additional code chunks and documentation.
-
-## Describe the data
-
-Using a combination of words and results of R commands, can you provide a high level description of the data? Describe as efficiently as possible where/how the data was (likely) gathered, indicate the cases and variables (both the interpretation and any details you deem useful to the reader to fully understand your chosen data).
 
 ```{r}
 #| label: summary
 
+#1st dataset Railroad_2012_clean_county
+#It is about number of employees in each company
+#there are 3 variables as can be seen using the colnames command- state, county, number of employees
+colnames(railroad_2012_clean_county)
+#number of employees- continuous variable
+#data was gathered from the following states
+states<-select(railroad_2012_clean_county,state)
+table(states)
+prop.table(table(states))
+
+#2nd dataset birds
+#14 columns and 30977 observations
+dim(birds) 
+#what the different columns are
+colnames(birds)
+#From colnames, we get to know that the dataset gives us the values of the dietary energy intake for different countries across different years
+#data types of the columns, value could actually be converted into double type
+str(birds)
+birds <- transform(birds,value1 = as.numeric(Value))
+#checking for missing values
+sum(is.na(birds))
+#removing missing values
+birds<-na.omit(birds)
+#checking the observations-around 11000 are removed
+dim(birds)
+area<-select(birds,Area)
+#Data was collected from several countries across continents
+table(area)
+item<-select(birds,Item)
+#6 types of birds as seen in item
+table(item)
+#only one domain of animals
+domain<-select(birds,Domain)
+table(domain)
+#To see the changes in the Value across the years
+plot(value1~Year,birds)
+#it can be seen that the values have increased over time
+#To see the changes in a specific country, for instance, the USA 
+birds_USA<-birds%>% filter(`Area`=='United States of America')
+plot(value1~Year,birds_USA)
 ```
