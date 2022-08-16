@@ -59,8 +59,6 @@ df1 <- read_xls("_data/StateCounty2012.xls", skip = 2)
 
 #I used my Downloads folder because I would rather not exempt my Documents folder from OneDrive. Willing to die on this hill.
 
-```
-
 ```{r}
 #First, removing unused columns
 df2 <- df1 %>% select(STATE,COUNTY,TOTAL)
