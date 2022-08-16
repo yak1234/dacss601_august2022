@@ -42,7 +42,7 @@ View(birds)
 #there are 3 variables as can be seen using the colnames command- state, county, number of employees
 colnames(railroad_2012_clean_county)
 #number of employees- continuous variable
-#data was gathered from the following states
+#Data was gathered from the following states
 states<-select(railroad_2012_clean_county,state)
 table(states)
 prop.table(table(states))
