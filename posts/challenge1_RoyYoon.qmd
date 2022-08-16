@@ -12,6 +12,7 @@ format:
 categories:
   - challenge_1
   - birds.csv
+  - submission 2
 ---
 
 ```{r}
