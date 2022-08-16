@@ -12,7 +12,7 @@ format:
 categories:
   - challenge_1
   - tidyverse
----
+  - statecounty2012
 
 ```{r}
 #| label: setup
@@ -51,13 +51,6 @@ library(readxl)
 ```{r}
 #Importing the dataset, and removing the first two rows of unhelpful data:
 df1 <- read_xls("_data/StateCounty2012.xls", skip = 2)
-
-#I really tried, but I couldn't get the relative paths to work :( 
-# getwd() returned "C:/Users/stevenoneill/Downloads/dacss601_august2022"
-#df1 <- read_xls("./posts/_data/StateCounty2012.xls", skip = 2)
-#df1 <- read_xls("_data/StateCounty2012.xls", skip = 2)
-
-#I used my Downloads folder because I would rather not exempt my Documents folder from OneDrive. Willing to die on this hill.
 
 ```
 
