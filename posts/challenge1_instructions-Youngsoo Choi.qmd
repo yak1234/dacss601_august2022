@@ -46,7 +46,7 @@ Find the `_data` folder, located inside the `posts` folder. Then you can read in
 ```{r}
 # Read data about birds
 library(readr)
-birds <- read_csv("~/R/dacss601/dacss601_august2022/posts/_data/birds.csv")
+birds <- read_csv("_data/birds.csv")
 View(birds)
 ```
 
