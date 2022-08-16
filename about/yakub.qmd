@@ -1,0 +1,31 @@
+---
+title: "Yakub Rabiutheen"
+image: images/yakub.jpeg
+about:
+  template: solana
+  image-width: 15em
+  image-shape: round
+  image: images/yakub.jpeg
+  links:
+    - icon: github
+      text: nesboonstra
+      href: https://github.com/DACSS
+---
+
+## Education/Work Background
+I had a Bachelors Degree in Political Science and Information Systems
+
+## R experience
+Some R Experience at work while working on research work in consulitng.
+
+## Research interests
+I am particulary interested in social capital research(Robert Putnam), as well as research about social and political values.
+
+## Hometown
+I grew up in Richmond, Virginia and currently live in DC.
+
+## Hobbies
+Learning French, traveling and hiking.
+
+## Fun fact
+I once met the Queen of England when she visited the U.S. in elementary school.
