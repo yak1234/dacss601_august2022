@@ -51,13 +51,13 @@ railroad <- read_csv("_data/railroad_2012_clean_county.csv")
 birds<- read_csv("_data/birds.csv")
 
 #4
-install.packages('readxl')
+#install.packages('readxl')
 library(readxl) # using the 'readxl' package since this file is an excel sheet
 
-wild_bird <- read_excel("~/Desktop/DACSS/dacss601_august2022/posts/_data/wild_bird_data.xlsx")
+wild_bird <- read_excel("_data/wild_bird_data.xlsx")
 
 #5
-state_county <- read_excel("~/Desktop/DACSS/dacss601_august2022/posts/_data/StateCounty2012.xls")
+state_county <- read_excel("_data/StateCounty2012.xls")
 
 ```
 
@@ -68,7 +68,6 @@ state_county <- read_excel("~/Desktop/DACSS/dacss601_august2022/posts/_data/Stat
 I'll be working with the 'railroad_2012_clean_county.csv' dataset.
 
 ```{r}
-#| label: summary
 
 dim(railroad) #describing the 'railroad' dataset's dimensions
 ```
@@ -84,7 +83,6 @@ head(railroad)
 The columns in 'railroad' are: 'state' (datatype: character), 'county'(datatype: character), and 'total_employees'(datatype: double class - numeric values with decimal points). These data were probably collected as part of a large-scale survey of the number of railroad employees by county and state in the United States.
 
 ```{r}
-#| label: summary
 railroad_arranged <- railroad %>%
   arrange(desc(total_employees)) # arranging data to find the county with the most number of employees
 head(railroad_arranged)
@@ -93,7 +91,6 @@ head(railroad_arranged)
 Cook county in Illinois has the highest number of railroad employees (8207).
 
 ```{r}
-#| label: summary
 railroads<- railroad %>%
   group_by(state) %>%  # grouping the data by state
   select(total_employees) %>% # looking only at the 'total_employees' column

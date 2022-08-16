@@ -45,8 +45,8 @@ Find the `_data` folder, located inside the `posts` folder. Then you can read in
 
 ```{r}
 library(readr)
-debt_data <- read_csv("posts/_data/debt_in_trillions.xlsx")
-View(debt_data)
+debt_data <- read_csv("_data/debt_in_trillions.xlsx")
+debt_data
 ```
 
 Add any comments or documentation as needed. More challenging data sets may require additional code chunks and documentation.
