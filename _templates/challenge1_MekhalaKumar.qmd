@@ -25,11 +25,11 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 
 
 ```{r}
-#1st dataset Railroad_2012_clean_county
+#1st Dataset Railroad_2012_clean_county
 library(readr)
 railroad_2012_clean_county <- read_csv("posts/_data/railroad_2012_clean_county.csv")
 view(railroad_2012_clean_county)
-#2nd dataset birds
+#2nd Dataset birds
 birds <- read_csv("posts/_data/birds.csv")
 View(birds)
 ```
