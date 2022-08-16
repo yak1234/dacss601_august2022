@@ -50,7 +50,7 @@ library(readxl)
 
 ```{r}
 #Importing the dataset, and removing the first two rows of unhelpful data:
-df1 <- read_xls("C:/Users/stevenoneill/Downloads/dacss601_august2022/posts/_data/StateCounty2012.xls", skip = 2)
+df1 <- read_xls("_data/StateCounty2012.xls", skip = 2)
 
 #I really tried, but I couldn't get the relative paths to work :( 
 # getwd() returned "C:/Users/stevenoneill/Downloads/dacss601_august2022"

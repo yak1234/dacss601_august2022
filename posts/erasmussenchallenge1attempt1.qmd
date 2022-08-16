@@ -27,9 +27,7 @@ Below is a preview of the data set "railroad_2012_clean_county"
 *****One of our tutorials says im not supposed to change the working directory in a script but my render would not go through without this in script (even if it was in my console)
 
 ```{r}
-setwd("~/Downloads/DACSS601/github/erasmussen/dacss601_august2022/posts/_data")
-library(readr)
-railroad_2012_clean_county <- read_csv("railroad_2012_clean_county.csv")
+railroad_2012_clean_county <- read_csv("_data/railroad_2012_clean_county.csv")
 View(railroad_2012_clean_county)
 head(railroad_2012_clean_county)
 ```
