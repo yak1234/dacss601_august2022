@@ -1,0 +1,43 @@
+---
+title: "Tyler Tewksbury"
+image: YourName.jpeg
+about:
+  template: solana
+  image-width: 15em
+  image-shape: round
+  image: images/YourName.jpeg
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/ttewks
+---
+
+##Instructions
+
+  - save a copy of this document as *FirstLast.qmd* 
+  - replace *Your Name* in yaml header with your first and last name
+  - pick an image (jpeg, png) to use and put it in the same folder as this document
+  - replace image names in yaml header
+  - replace github user name (if you have one, otherwise we will set one up next week)
+  - fill in information below, as appropriate
+  - remove these instructions and render!
+
+## Education/Work Background
+B.A. in Economics from UMass Amherst
+Business Systems Analyst Intern at Epsilon
+DACSS Student Employee (Social Media, Instructional Design)
+
+## R experience
+Econometrics, Quantitative Methods in Research, Instructional Designer for 601
+
+## Research interests
+Data Visualization, Autonomous Transportation
+
+## Hometown
+Milton, MA
+
+## Hobbies
+Weightlifting, Reading, Video Games, Crossword Puzzles, Geography
+
+## Fun fact
+I met the creator of Pokémon in 2015
