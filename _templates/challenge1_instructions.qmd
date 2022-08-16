@@ -50,7 +50,7 @@ prop.table(table(states))
 #2nd dataset birds
 #14 columns and 30977 observations
 dim(birds) 
-#what the different columns are
+#What the different columns are
 colnames(birds)
 #From colnames, we get to know that the dataset gives us the values of the dietary energy intake for different countries across different years
 #data types of the columns, value could actually be converted into double type
