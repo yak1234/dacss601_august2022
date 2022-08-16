@@ -11,7 +11,9 @@ format:
     code-tools: true
 categories:
   - challenge_1
----
+  - tidyverse
+  - readxl
+  - wild_bird_data
 
 ```{r}
 #| label: setup
