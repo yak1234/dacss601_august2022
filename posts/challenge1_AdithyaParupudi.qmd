@@ -1,6 +1,6 @@
 ---
 title: "Challenge 1"
-author: "Will Munson"
+author: "Adithya Parupudi"
 desription: "Reading in data and creating a post"
 date: "08/15/2022"
 format:
@@ -11,6 +11,9 @@ format:
     code-tools: true
 categories:
   - challenge_1
+  - tidyverse
+  - birds.csv
+  - hw2
 ---
 
 ```{r}
@@ -19,6 +22,8 @@ categories:
 #| message: false
 
 library(tidyverse)
+library(readr)
+library(dplyr)
 
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 ```
@@ -44,27 +49,38 @@ Read in one (or more) of the following data sets, using the correct R package an
 Find the `_data` folder, located inside the `posts` folder. Then you can read in the data, using either one of the `readr` standard tidy read commands, or a specialized package such as `readxl`.
 
 ```{r}
-#| label: setup
-#| warning: false
-#| warning: false
+birds_data <- read_csv("_data/birds.csv",show_col_types = FALSE)
+#spec(birds_data) -> full column specification
 
-birds <- read_csv("C:/Users/wmuns/OneDrive/Desktop/DACSS/dacss601_august2022/posts/_data/birds.csv")
 ```
 
-Add any comments or documentation as needed. More challenging data sets may require additional code chunks and documentation.
+After importing the csv file, and I notice that out of the 14 columns, 8 of them are of character type and 6 columns are double. Total rows -\> 30977!
 
 ## Describe the data
 
 Using a combination of words and results of R commands, can you provide a high level description of the data? Describe as efficiently as possible where/how the data was (likely) gathered, indicate the cases and variables (both the interpretation and any details you deem useful to the reader to fully understand your chosen data).
 
 ```{r}
-#| label: summary
-#| The birds.csv file is a measurement of the price of each of these birds, most likely for livestock purposes. These are categorized by year, type of bird, country where they're sold, and even the accuracy of the data. Each qualitative variable is designated by a specific code. 
+names(birds_data)
 
-b <- birds %>%
-  group_by(Year) %>%
-  filter(Item == 'Chickens') %>%
-  summarise_at(vars(Value), ~ mean(Value, na.rm = TRUE))
-
-plot(x = b$Year, y = b$Value)
 ```
+
+Column names at a glance
+
+```{r}
+head(birds_data)
+```
+
+```{r}
+#| label: summary
+str(birds_data)
+```
+
+We get to see a get a high level view of the column names and its entries.
+
+```{r}
+hist(birds_data$`Item Code`)
+hist(birds_data$`Area Code`)
+```
+
+Using the histogram functions, observed that the frequency for item code and area codes respectively.
