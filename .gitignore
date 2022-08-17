@@ -42,6 +42,7 @@ vignettes/*.pdf
 /.quarto/
 /_site/
 _site/
+<<<<<<< HEAD
 #site_libs
 _freeze/site_libs/
 
