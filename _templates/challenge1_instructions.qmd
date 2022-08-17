@@ -44,6 +44,7 @@ Read in one (or more) of the following data sets, using the correct R package an
 Find the `_data` folder, located inside the `posts` folder. Then you can read in the data, using either one of the `readr` standard tidy read commands, or a specialized package such as `readxl`.
 
 ```{r}
+railroad = read.csv('C:\\Users\\user\\Desktop\\dacss601_august2022\\posts\\_data\\railroad_2012_clean_county.csv', header = TRUE)
 
 ```
 
@@ -55,5 +56,25 @@ Using a combination of words and results of R commands, can you provide a high l
 
 ```{r}
 #| label: summary
+
+#dim dimentions of the dataset, number of rows and columns
+dim(railroad)
+
+# str, number of observations, variables (columns) and class of each columns variable, along with few observations
+
+str(railroad)
+
+#summary, summary of railroad dataset of individual column variables; with length, class & mode for character class columns variables and quartile distribution for numeric class column variable along with min-max values
+summary(railroad)
+
+# psych describe
+# displays: number of observations, mean, standard distribution (sd), median, trimmed, mad, min, max values for the column variables
+
+psych::describe(railroad)
+
+#Hmisc describe
+# displays number of observations,  number of missing value in columns, number of distinct values in columns, Mean Gmd, lowest, highest values etc.
+
+Hmisc::describe((railroad))
 
 ```
