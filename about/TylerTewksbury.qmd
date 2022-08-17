@@ -14,21 +14,22 @@ about:
 
 
 ## Education/Work Background
-B.A. in Economics from UMass Amherst
-Business Systems Analyst Intern at Epsilon
-DACSS Student Employee (Social Media, Instructional Design)
+2022 graduate with a B.A. in Economics from UMass Amherst.
+Worked as a Business Systems Analyst Intern at Epsilon in the Summer of 2022, and have been a
+DACSS Student Employee for over a year (Social Media currently, previously Instructional Design).
 
 ## R experience
-Econometrics, Quantitative Methods in Research, Instructional Designer for 601
+I have experience in R from classwork in Econometrics and Quantitative Research Methods, as well as working on 601 as an Instructional Designer.
+
 
 ## Research interests
 Data Visualization, Autonomous Transportation
 
 ## Hometown
-Milton, MA
+Originally from Milton Massachusetts, but moved around a lot. Lived in New York, Maine, and now Amherst!
 
 ## Hobbies
-Weightlifting, Reading, Video Games, Crossword Puzzles, Geography
+Weightlifting, Reading, Video Games, Crossword Puzzles, Geography.
 
 ## Fun fact
-I met the creator of Pokémon in 2015
+I met the creator of Pokémon in 2015! He sat at the table next to me in a restaurant in Boston.
