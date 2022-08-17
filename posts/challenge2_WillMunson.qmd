@@ -62,8 +62,8 @@ Conduct some exploratory data analysis, using dplyr commands such as `group_by()
 
 ```{r}
 FAOstat %>%
-  group_by(Item) %>%
-  # filter(Item == 'Asses') %>%
+  group_by(Year) %>%
+  filter(Item == 'Asses') %>%
   summarize_at(vars(Value), ~ median(Value, na.rm = TRUE))
 ```
 
