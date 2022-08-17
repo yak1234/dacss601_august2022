@@ -1,0 +1,72 @@
+---
+title: "Challenge 2 Will Munson"
+author: "Will Munson"
+desription: "Data wrangling: using group() and summarise()"
+date: "08/16/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - challenge_2
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+## Challenge Overview
+
+Today's challenge is to
+
+1)  read in a data set, and describe the data using both words and any supporting information (e.g., tables, etc)
+2)  provide summary statistics for different interesting groups within the data, and interpret those statistics
+
+## Read in the Data
+
+Read in one (or more) of the following data sets, available in the `posts/_data` folder, using the correct R package and command.
+
+-   railroad\*.csv or StateCounty2012.xlsx ⭐
+-   FAOstat\*.csv ⭐⭐⭐
+-   hotel_bookings ⭐⭐⭐⭐
+
+```{r}
+FAOstat <- read_csv("C:/Users/wmuns/OneDrive/Desktop/DACSS/DACSS/dacss601_august2022/posts/_data/FAOSTAT_livestock.csv")
+```
+
+Add any comments or documentation as needed. More challenging data may require additional code chunks and documentation.
+
+## Describe the data
+
+Using a combination of words and results of R commands, can you provide a high level description of the data? Describe as efficiently as possible where/how the data was (likely) gathered, indicate the cases and variables (both the interpretation and any details you deem useful to the reader to fully understand your chosen data).
+
+    So, essentially, this data is interpreting the value of livestock around the world. The values are either official or unofficial data, or FAO estimates. 
+    
+    The data has a total of over 82k slots. Value is the only quantitative variable. Each set of data was recorded between the years of 1961 and 2018. 
+```{r}
+#| label: summary
+summary(FAOstat)
+```
+
+## Provide Grouped Summary Statistics
+
+Conduct some exploratory data analysis, using dplyr commands such as `group_by()`, `select()`, `filter()`, and `summarise()`. Find the central tendency (mean, median, mode) and dispersion (standard deviation, mix/max/quantile) for different subgroups within the data set.
+
+```{r}
+FAOstat %>%
+  group_by(Item) %>%
+  # filter(Item == 'Asses') %>%
+  summarize_at(vars(Value), ~ median(Value, na.rm = TRUE))
+```
+
+### Explain and Interpret
+
+Be sure to explain why you choose a specific group. Comment on the interpretation of any interesting differences between groups that you uncover. This section can be integrated with the exploratory data analysis, just be sure it is included.
