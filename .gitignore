@@ -42,6 +42,7 @@ vignettes/*.pdf
 /.quarto/
 /_site/
 _site/
+_freeze/site-libs/
 
 #student files
 *.Rproj
