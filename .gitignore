@@ -47,7 +47,3 @@ _freeze/site-libs/
 #student files
 *.Rproj
 .DS_Store
-
-#site_libs
-_freeze/*
-_templates/challenge1_instructions_file/*

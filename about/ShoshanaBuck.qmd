@@ -1,4 +1,4 @@
----
+ ---
 title: "Shoshana Buck"
 image: images/ShoshanaBuck.jpg
 about:

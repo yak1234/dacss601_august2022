@@ -47,8 +47,6 @@ I imported the data set of railroad_2012_clean_county.csv and renamed it as Rail
 colnames(railroad)
 spec(railroad)
 head(railroad)
-railroad %>%  
-group_by(county)
 railroad %>% 
   group_by(state) %>% 
   summarise(total_employees2=sum(total_employees))
