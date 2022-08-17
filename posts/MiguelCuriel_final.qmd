@@ -2,7 +2,7 @@
 title: "Is Social Media REALLY Bad For Your Mental Health?"
 author: "Miguel Curiel"
 desription: "A country-level analysis of the relation between minutes spent on social media and mental disorder prevalence"
-date: "August 30, 2022"
+date: "July 30, 2022"
 format:
   html:
     toc: true

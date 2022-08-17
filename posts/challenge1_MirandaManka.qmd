@@ -20,6 +20,7 @@ categories:
 
 #Packages
 library(tidyverse)
+library(readxl)
 
 #Set up
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
@@ -38,7 +39,7 @@ Today's challenge is to
 
 ```{r}
 #Read in the excel file
-wild_bird_data = read_excel("~/Github/DACSS - 601/dacss601_august2022/posts/_data/wild_bird_data.xlsx")
+wild_bird_data = read_excel("_data/wild_bird_data.xlsx")
 ```
 
 
