@@ -40,7 +40,7 @@ Read in one (or more) of the following data sets, available in the `posts/_data`
 
 ```{r}
 library(readxl)
-state2012 <- read_xls("~/R/dacss601/dacss601_august2022/posts/_data/StateCounty2012.xls", skip=3)
+state2012 <- read_xls("_data/StateCounty2012.xls", skip=3)
 state2012
 colnames(state2012)
 ```
