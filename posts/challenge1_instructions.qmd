@@ -2,7 +2,7 @@
 title: "Challenge 1 Instructions"
 author: "Meredith Rolfe"
 desription: "Reading in data and creating a post"
-date: "08/15/2022"
+date: "2022-08-15T00:00:01Z"
 format:
   html:
     toc: true
