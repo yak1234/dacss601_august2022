@@ -41,9 +41,6 @@ vignettes/*.pdf
 #quarto
 /.quarto/
 /_site/
-_site/
-<<<<<<< HEAD
-#site_libs
 _freeze/site_libs/
 
 #student files
