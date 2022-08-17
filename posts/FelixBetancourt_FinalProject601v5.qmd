@@ -1,0 +1,735 @@
+---
+title: "Employee Absenteeism: a data Exploration for a Courier Company"
+author: "Felix Betancourt"
+desription: "Discovering aspects associated to Absenteeism in a Courier company. Final Project DACSS601"
+date: "08/16/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - Final Project DACSS-601
+  - Organizational Development
+  - Employee turnover
+  - Absenteeism
+  - ggplot2
+  - dplyr
+  - tidyverse
+---
+
+```{r}
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+# Introduction
+
+Absenteeism is one of topics that has an economic impact in the companies. 
+
+Absenteeism takes place when employees do not report to work. Absenteeism can take two forms, authorized or unauthorized. Management is primarily interested in reducing unauthorized absenteeism since it is more likely to cause hardships on employees and guests alike (Pizam, A. & Thornburg, S. 2000).
+
+As Henkerson and Persson (2004) said, absence from work can have multiple causes, but there is little doubt that the quantitatively most important one is sick leave. 
+
+The data available in this study is related only to the population reported absent in a courier company, therefore we will try to find what might explain the total number of hours absent to work.
+
+
+# About the Dataset:
+
+The dataset contain real data from a Courier Company, and it was created to explain the absenteeism.
+
+Variables:
+
+1.	Individual identification (ID)
+2.	Reason for absence (ICD).
+
+Absences attested by the International Code of Diseases (ICD) stratified into 21 categories (I to XXI) as follows:
+
+I Certain infectious and parasitic diseases
+
+II Neoplasms
+
+III Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
+
+IV Endocrine, nutritional and metabolic diseases
+
+V Mental and behavioural disorders
+
+VI Diseases of the nervous system
+
+VII Diseases of the eye and adnexa
+
+VIII Diseases of the ear and mastoid process
+
+IX Diseases of the circulatory system
+
+X Diseases of the respiratory system
+
+XI Diseases of the digestive system
+
+XII Diseases of the skin and subcutaneous tissue
+
+XIII Diseases of the musculoskeletal system and connective tissue
+
+XIV Diseases of the genitourinary system
+
+XV Pregnancy, childbirth and the puerperium
+
+XVI Certain conditions originating in the perinatal period
+
+XVII Congenital malformations, deformations and chromosomal abnormalities
+
+XVIII Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified
+
+XIX Injury, poisoning and certain other consequences of external causes
+
+XX External causes of morbidity and mortality
+
+XXI Factors influencing health status and contact with health services.
+
+And 7 categories without (CID) patient follow-up (22), medical consultation (23), blood donation (24), laboratory examination (25), unjustified absence (26), physiotherapy (27), dental consultation (28).
+
+3.	Month of absence
+4.	Day of the week (Monday (2), Tuesday (3), Wednesday (4), Thursday (5), Friday (6))
+5.	Seasons (summer (1), autumn (2), winter (3), spring (4))
+6.	Transportation expense
+7.	Distance from Residence to Work (kilometers)
+8.	Service time
+9.	Age
+10.	Work load Average/day
+11.	Hit target
+12.	Disciplinary failure (yes=1; no=0)
+13.	Education (high school (1), graduate (2), postgraduate (3), master and doctor (4))
+14.	Son (number of children)
+15.	Social Drinker (yes=1; no=0)
+16.	Social smoker (yes=1; no=0)
+17.	Pet (number of pet)
+18.	Weight
+19.	Height
+20.	Body mass index
+21.	Absenteeism time in hours (target)
+
+
+## Setting up and Reading the data
+
+Let's load packages and data.
+
+```{r}
+# Loading packages
+
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(tidyverse))
+library(formattable)
+suppressPackageStartupMessages(library(kableExtra))
+library(ggplot2)
+suppressPackageStartupMessages(library(janitor))
+
+# Setting working directory and loading dataset.
+
+setwd("/Users/fbeta/OneDrive/1-UMASS-DACSS/601/DataSets/Absenteeism/")
+
+courier <- read.csv("Absenteeism_at_work_Project.csv")
+
+```
+
+## Exploring the data and wrangling it
+
+### Let's see the structure of the dataset
+
+```{r}
+
+str(courier)
+
+```
+
+
+The dataset has 21 variables and 740 observations to explore potential explanations to the absenteeism.
+
+In terms of the type of data we have:
+
+- Nine (9) Categorical variables:
+
+      - "reason_for_absence"
+      - "month_of_absence"
+      - "day_of_the_week"
+      - "seasons"    
+      - "disciplinary_failure"  
+      - "education"            
+      - "social_drinker"    
+      - "social_smoker"     
+      - "pet"     
+
+      
+- Three (3) numeric discrete:
+
+      - "ID"
+      - "work_load_average_day" 
+      - "hit_target"            
+      
+- Nine (9) numeric continuous:
+
+      - "transportation_expense" 
+      - "distance_to_work"      
+      - "service_time"         
+      - "age"                 
+      - "son"                
+      - "weight"            
+      - "height"            
+      - "bmi"               
+      - "absenteeism_time_in_hours"
+
+      
+The dataset seems very clean in general, but I will adjust a few things:
+
+1. Variable "work_load_average_day" and "hit_target" are not clear in the description of the file. Also "pet" and "month_of_absence" (we have season) does not seem relevant variable. I rather to eliminate those variables from the dataset.
+
+```{r}
+courier2 <- courier %>%
+  dplyr::select(-work_load_average_day, -hit_target, -pet, -month_of_absence)
+
+```
+
+2. On the other hand weight and height are used to calculate BMI, so I will eliminate also those 2 variables to simplify the dataset.
+
+```{r results='hide'}
+courier2 <- courier2 %>%
+  dplyr::select(-weight, -height)
+```
+
+3. I will re code back to the categories name for a few relevant categorical variables to use it as character in tables, and will create categorical type of variable for Son (number of children) and ID. But I'll save it as new variables in case I need to use it as numeric too at some point.
+
+```{r}
+
+courier2 <-courier2%>%
+  mutate(Reason = case_when(
+        reason_for_absence == 1 ~ "Parasitic",
+        reason_for_absence == 2 ~ "Neoplasms",
+        reason_for_absence == 3 ~ "Blood and Immune",
+        reason_for_absence == 4 ~ "Metabolic",
+        reason_for_absence == 5 ~ "Mental",
+        reason_for_absence == 6 ~ "Nervous system",
+        reason_for_absence == 7 ~ "Eye and Adnexa",
+        reason_for_absence == 8 ~ "Ear and Mastoid",
+        reason_for_absence == 9 ~ "Circulatory",
+        reason_for_absence == 10 ~ "Respiratory",
+        reason_for_absence == 11 ~ "Digestive",
+        reason_for_absence == 12 ~ "Skin",
+        reason_for_absence == 13 ~ "Musculoskeletal",
+        reason_for_absence == 14 ~ "Genitourinary",
+        reason_for_absence == 15 ~ "Pregnancy",
+        reason_for_absence == 16 ~ "Perinatal period",
+        reason_for_absence == 17 ~ "Deformations and Chromosomal",
+        reason_for_absence == 18 ~ "Laboratory findings",
+        reason_for_absence == 19 ~ "Injury, Poisoning",
+        reason_for_absence == 20 ~ "External causes and mortality",
+        reason_for_absence == 21 ~ "Health status",
+        )) %>%
+  mutate(Education.Level = case_when(
+         education == 1 ~ "High School",
+         education == 2 ~ "Bachelor",
+         education == 3 ~ "Post-graduate",
+         education == 4 ~ "Master or Phd",
+         )) %>%
+  mutate(Day.of.Week = case_when(
+         day_of_the_week == 2 ~ "Monday",
+         day_of_the_week == 3 ~ "Tuesday",
+         day_of_the_week == 4 ~ "Wednesday",
+         day_of_the_week == 5 ~ "Thursday",
+         day_of_the_week == 6 ~ "Friday",
+         ))%>%
+  mutate(Season = case_when(
+         seasons == 1 ~ "Summer",
+         seasons == 2 ~ "Fall",
+         seasons == 3 ~ "Winter",
+         seasons == 4 ~ "Spring",
+         ))%>%
+  mutate(Disciplined = case_when(
+         disciplinary_failure == 1 ~ "Yes",
+         disciplinary_failure == 0 ~ "No",
+         ))%>%
+  mutate(Drinker = case_when(
+         social_drinker == 1 ~ "Yes",
+         social_drinker == 0 ~ "No",
+        ))%>%
+  mutate(Children = case_when(
+         son == 0 ~ "No Children",
+         son == 1 ~ "One",
+         son == 2 ~ "Two",
+         son == 3 ~ "Three",
+         son == 4 ~ "Four",
+        ))%>%
+  mutate(Smoker = case_when(
+         social_smoker == 1 ~ "Yes",
+         social_smoker == 0 ~ "No",
+         ))
+
+courier2$ID <- sub("^", "EE", courier$ID )
+
+
+```
+
+Let's check the new Dimensions of the dataset
+
+```{r}
+
+dim.data.frame(courier2)
+
+```
+Now we have 23 variables (including the new re-coded ones) in the dataset and 740 cases/rows.
+
+In addition, probably we have several observations for each employee in different rows (one entry for each absence in the same employee). Let's check how many distinct employees we have in the dataset.
+
+```{r}
+
+courier3 <- courier2 %>%
+  filter(!is.na(ID) & ID != "NULL") %>%
+  group_by(ID) %>%
+  tally(sort = T) %>%
+  arrange(desc(n))
+courier3
+  
+```
+
+Certainly we have only 36 unique employees reported absent to work at least 1 time.
+
+
+Now let's see a summary of total hours of absence for each unique Employee:
+
+```{r}
+
+suppressPackageStartupMessages(library(data.table))
+dt <- data.table(courier2)
+dt2 <- dt[,list(Total.Hours = sum(absenteeism_time_in_hours, na.rm=T), freq = .N), by = c("ID", "Reason")]
+
+  ID_table <- dt2 %>% 
+  group_by(ID) %>%
+  summarise(Total.Hours.r = sum(Total.Hours, na.rm=TRUE), Hours.Mean = mean(Total.Hours, na.rm=TRUE), Hours.Median = median(Total.Hours, na.rm=TRUE))
+ID_table <- ID_table %>%
+  mutate(Total.Hours.Percent = Total.Hours.r/(sum(Total.Hours.r))*100.2)
+  ID_table <- ID_table[with (ID_table, order(-Total.Hours.Percent)),]
+
+ID_table <- ID_table%>%
+  mutate(Cum_Percent = cumsum(Total.Hours.Percent))
+  
+ID_table_o <- ID_table[with (ID_table, order(-Total.Hours.Percent)),]
+formattable(ID_table_o) %>% 
+  kable("html", escape = F, caption = "Summary of Total Hours Absent by Employee", align = c("l", "c", "c", "c", "c", "c")) %>% 
+  kable_classic(full_width = F, html_font = "Cambria")
+
+```
+
+
+
+It does seems interesting that 50% of the total hours of absence are concentrated in 7 employees only (EE11, EE3, EE14, EE28, EE34, EE36, EE20).
+
+As most of the bibliography indicate, the most frequent reason for absence is medical reasons. So we will put some focus on the reasons of absence.
+
+First let's visualize Reasons for absence.
+
+```{r}
+
+box_plot_crop<-ggplot(data=courier2, aes(Reason,absenteeism_time_in_hours, fill=Reason)) 
+box_plot_crop+ geom_boxplot(alpha=0.7, outlier.shape = NA) +
+  theme(legend.position = "right") +
+  theme (axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())+
+  coord_cartesian(ylim =  c(0, 60))+
+  labs(title="Total Absenteeism Hours by Reason of Absence",
+        x ="Reason of Absence", y = "Total Hours")
+```
+
+Clearly some reasons (Circulatory, Injury-Poisoning, Musculoeskeletal and Skin) represent more absence hours than others.
+
+2. Let's summarize this variable on a table to see it more clearly.
+
+```{r}
+
+ ID_table2 <- dt2 %>% 
+  group_by(Reason) %>%
+  summarise(Total.Hours.r = sum(Total.Hours, na.rm=TRUE), Hours.Mean = mean(Total.Hours, na.rm=TRUE), Hours.Median = median(Total.Hours, na.rm=TRUE))
+ID_table2 <- ID_table2 %>%
+  mutate(Total.Hours.Percent = Total.Hours.r/(sum(Total.Hours.r))*100.2)
+  ID_table2 <- ID_table2[with (ID_table2, order(-Total.Hours.Percent)),]
+
+ID_table2 <- ID_table2%>%
+  mutate(Cum_Percent = cumsum(Total.Hours.Percent))
+  
+ID_table_o2 <- ID_table2[with (ID_table2, order(-Total.Hours.Percent)),]
+formattable(ID_table_o2) %>% 
+  kable("html", escape = F, caption = "Summary of Total Hours Absent by Reason", align = c("l", "c", "c", "c", "c", "c")) %>% 
+  kable_classic(full_width = F, html_font = "Cambria")
+
+```
+
+
+      
+We can notice that 1/3 of the hours absent does not report a reason or not reported what was the medical reason.
+
+Then, we found that the following medical reasons concentrate about 55% (by resting the 33% NA to the 88% cumulated ) of the total hours absent:
+
+Musculoskeletal
+
+Injury, Poisoning
+
+Respiratory
+
+Laboratory findings	
+
+Skin	
+
+Parasitic	
+
+Digestive	
+
+Circulatory 
+
+It is relevant to mention that Circulatory followed by Musculoskeletal conditions tends to produce, in average, more hours of absence.
+
+Now let's try to analyze the data by discriminating better between Medical Reasons and specific employees or group of employees with more absence by separating those variables in 2 groups.
+
+Let's create two new columns with 2 new groups each: high and low "risk", where the observations corresponding to those seven high absent employees will be categorized as "High Absence" and the rest (29 employees) as "Low Absence". And Medical Reason as High Risk or Low Risk, where the conditions listed above will conform the group of "Medical High Risk" and the rest "Medical Low Risk".
+
+```{r}
+
+courier2 <- courier2%>%
+  mutate(Risk = case_when(
+        ID == 'EE11' ~ "High Absence",
+        ID == 'EE3' ~ "High Absence",
+        ID == 'EE14' ~ "High Absence",
+        ID == 'EE28' ~ "High Absence",
+        ID == 'EE34' ~ "High Absence",
+        ID == 'EE36' ~ "High Absence",
+        ID == 'EE20' ~ "High Absence",
+        TRUE ~ "Low Absence"
+        ))%>%
+  mutate(Reason.Group = case_when(
+        Reason == 'Musculoskeletal' ~ "Medical High Risk",
+        Reason == 'Injury, Poisoning' ~ "Medical High Risk",
+        Reason == 'Respiratory' ~ "Medical High Risk",
+        Reason == 'Laboratory findings' ~ "Medical High Risk",
+        Reason == 'Skin' ~ "Medical High Risk",
+        Reason == 'Parasitic' ~ "Medical High Risk",
+        Reason == 'Digestive' ~ "Medical High Risk",
+        Reason == 'Circulatory' ~ "Medical High Risk",
+        TRUE ~ "Medical Low Risk"
+        ))
+```
+
+
+### Let's visualize and summarize other categorical variables grouped by Medical Reason and Risk group. 
+
+
+
+```{r}
+
+suppressPackageStartupMessages(library(epiDisplay)) #Using epiDisplay package to get useful tables with frequency and percentages
+
+# Box Plot - Education Level
+courier2$Education.Level <- factor(courier2$Education.Level , levels=c("High School", "Bachelor", "Master or Phd", "Post-graduate", "NA"))
+ggplot(courier2, aes(x = Education.Level, y = absenteeism_time_in_hours, fill = Risk))+
+  geom_boxplot(alpha=0.7, outlier.shape = NA)+
+  facet_wrap(.~Reason.Group, scales = "free")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(legend.position = "right") +
+  coord_cartesian(ylim =  c(0, 26))+
+  labs(title="Total Absenteeism Hours by Education Level",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Education Level", y = "Total Hours")
+
+# Frequency table for Education Level
+tab1(courier2$Education.Level, sort.group = "decreasing", cum.percent = F, missing = FALSE, graph = F)
+
+```
+
+Here we can notice that, High School represent 80% of the observations, and the High Absent and High Medical Risk groups are more represented in this level of education. Probably most of the absent are in non-professional roles within the company.
+
+
+
+
+```{r}
+
+# Box Plot - Day of the week
+courier2$Day.of.Week <- factor(courier2$Day.of.Week , levels=c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"))
+ggplot(courier2, aes(x = Day.of.Week, y = absenteeism_time_in_hours, fill = Risk))+
+  geom_boxplot(alpha=0.7, outlier.shape = NA)+
+  facet_wrap(.~Reason.Group, scales = "free")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(legend.position = "right") +
+  coord_cartesian(ylim =  c(0, 26))+
+  labs(title="Total Absenteeism Hours by Day of the Week",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Day of the Week", y = "Total Hours")
+
+# Frequency table for Day of the Week
+tab1(courier2$Day.of.Week, sort.group = "decreasing", cum.percent = F, missing = FALSE, graph = F)
+
+```
+
+Here we can note that the High Absent group is almost evenly distributed during the week, though Wednesday seems a more prevalent day in the week.
+
+
+```{r}
+# Box Plot -Season
+courier2$Season <- factor(courier2$Season , levels=c("Winter", "Spring", "Summer", "Fall"))
+ggplot(courier2, aes(x = Season, y = absenteeism_time_in_hours, fill = Risk))+
+  geom_boxplot(alpha=0.7, outlier.shape = NA)+
+  facet_wrap(.~Reason.Group, scales = "free")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(legend.position = "right") +
+  coord_cartesian(ylim =  c(0, 26))+
+  labs(title="Total Absenteeism Hours by Season",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Season", y = "Total Hours")
+
+# Frequency table for Season
+tab1(courier2$Season, sort.group = "decreasing", cum.percent = F, missing = FALSE, graph = F)
+```
+It seems that for the High Absent group of employees with Medical High Risk, Winter and Spring are the most prevalent Seasons of the year to be absent.
+
+
+
+```{r}
+
+# Box Plot Disciplined
+
+ggplot(courier2, aes(x = Disciplined, y = absenteeism_time_in_hours, fill = Risk))+
+  geom_boxplot(alpha=0.7, outlier.shape = NA)+
+  facet_wrap(.~Reason.Group, scales = "free")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(legend.position = "right") +
+  coord_cartesian(ylim =  c(0, 26))+
+  labs(title="Total Absenteeism Hours by Disciplined",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Disciplined", y = "Total Hours")
+
+
+# Frequency table for Disciplined or not
+tab1(courier2$Disciplined, sort.group = "decreasing", cum.percent = F, missing = FALSE, graph = F)
+
+```
+
+It looks that not being Disciplined is related to more hours absent, but at the same time if we look at the frequency table, 94% of the observations does not show a record of being Disciplined before. Therefore we can't make a conclusion with this variable.
+
+
+```{r}
+
+# Box Plot - Drinker
+ggplot(courier2, aes(x = Drinker, y = absenteeism_time_in_hours, fill = Risk))+
+  geom_boxplot(alpha=0.7, outlier.shape = NA)+
+  facet_wrap(.~Reason.Group, scales = "free")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(legend.position = "right") +
+  coord_cartesian(ylim =  c(0, 26))+
+  labs(title="Total Absenteeism Hours by Drinker",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Drinker", y = "Total Hours")
+
+
+# Frequency table for Drinker or not
+
+tab1(courier2$Drinker, sort.group = "decreasing", cum.percent = F, missing = FALSE, graph = F)
+
+```
+
+In this case, for the Medical High Risk group, it seems that being reported as a Drinker is associated to have more hours absent in general. So, there could be a relation between being Social Drinker, certain Medical conditions and being absent at work.
+
+
+```{r}
+
+# Box Plot Smoker
+
+ggplot(courier2, aes(x = Smoker, y = absenteeism_time_in_hours, fill = Risk))+
+  geom_boxplot(alpha=0.7, outlier.shape = NA)+
+  facet_wrap(.~Reason.Group, scales = "free")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(legend.position = "right") +
+  coord_cartesian(ylim =  c(0, 26))+
+  labs(title="Total Absenteeism Hours by Smoker",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Smoker", y = "Total Hours")
+
+
+# Frequency table for Smoker or not
+tab1(courier2$Smoker, sort.group = "decreasing", cum.percent = F, missing = FALSE, graph = F)
+
+```
+
+Seems that being Smoker does not represent a Risk of absence, but at the same time we need to consider that 92% of the employees in this dataset are not Smoker. Also it is interesting to see that only 4 observations did not report whether Smoker or not, but they represent an important amount of hours absent.
+
+
+```{r}
+
+# Box Plot - Children
+courier2$Children <- factor(courier2$Children , levels=c("No Children", "One", "Two", "Three", "Four", "NA"))
+ggplot(courier2, aes(x = Children, y = absenteeism_time_in_hours, fill = Risk))+
+  geom_boxplot(alpha=0.7, outlier.shape = NA)+
+  facet_wrap(.~Reason.Group, scales = "free")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(legend.position = "right") +
+  coord_cartesian(ylim =  c(0, 26))+
+  labs(title="Total Absenteeism Hours by Children",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Children", y = "Total Hours")
+
+
+# Frequency table for Number of Children
+tab1(courier2$Children, sort.group = "decreasing", cum.percent = F, missing = FALSE, graph = F)
+
+```
+
+
+As we can note above, in the case of number of Children, it seems that regardless the Medical Risk, having 2 or more kids may have and prevalent incidence the absenteeism.
+
+While this is clear in the visualization, it is a bit difficult to make a conclusion or take further actions based on this finding, other than offering options and be more flexible for the employees to take care of their family.
+
+
+## Now let's check any relation between Total Hours of Absence and other continuos variables.
+
+### Let's use Scatter Plots to visualize.
+
+
+```{r}
+
+# Tenure
+
+scatter1 <- ggplot(courier2, aes(service_time,absenteeism_time_in_hours, col=Risk))+
+  geom_point()+
+  scale_y_continuous(limits=c(0,150))+
+  labs(title="Total Absenteeism Hours vs Tenure",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Years of Service", y = "Total Hours")
+scatter1+
+  facet_wrap(vars(Reason.Group))
+```
+
+
+```{r}
+#Age
+
+scatter2 <- ggplot(courier2, aes(age,absenteeism_time_in_hours, col=Risk))+
+  geom_point()+
+  scale_y_continuous(limits=c(0,100))+
+  labs(title="Total Absenteeism Hours vs Age",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Age", y = "Total Hours")
+scatter2+
+  facet_wrap(vars(Reason.Group))
+
+```
+
+```{r}
+#BMI
+
+scatter3 <- ggplot(courier2, aes(bmi,absenteeism_time_in_hours, col=Risk))+
+  geom_point()+
+  scale_y_continuous(limits=c(0,100))+
+  labs(title="Total Absenteeism Hours vs BMI",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Body Mass Index", y = "Total Hours")
+scatter3+
+  facet_wrap(vars(Reason.Group))
+
+```
+
+
+```{r}
+
+#Distance to Work 
+
+scatter5 <- ggplot(courier2, aes(distance_to_work,absenteeism_time_in_hours, col=Risk))+
+  geom_point()+
+  scale_y_continuous(limits=c(0,100))+
+  labs(title="Total Absenteeism Hours vs Distance to work",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Distance to work in KM", y = "Total Hours")
+scatter5+
+  facet_wrap(vars(Reason.Group))
+
+```
+
+
+```{r}
+# Transportation Expenses 
+
+scatter6 <- ggplot(courier2, aes(transportation_expense,absenteeism_time_in_hours, col=Risk))+
+  geom_point()+
+  scale_y_continuous(limits=c(0,100))+
+  labs(title="Total Absenteeism Hours vs Transportation Expense",
+       subtitle = "Grouped by Medical Reason Group and Risk of Absence",
+        x ="Transportation Expense", y = "Total Hours")
+scatter6+
+  facet_wrap(vars(Reason.Group))
+
+
+```
+
+
+
+In general, there is not a clear pattern that we can identify from these scatter plots, however it is interesting to see how in the High Absence group with High medical conditions live relatively close to work (about 10 Km), though difficult to make a relevant conclusion from there.
+
+## Conclusions
+
+The first conclusion is that in this company in particular 50% of the total hours of absence are concentrated in 7 employees out of the 36 in the dataset. 
+
+Also, it is relevant to note that 33% of the absence records does not report an specific reason for the absence or it is not related to medical conditions. Which open questions around employee engagement.
+
+On the other hand 55% of the total hours absent are concentrated to 8 medical (Musculoskeletal, Injury-Poisoning, Respiratory, Laboratory findings, Skin, Parasitic, 
+Digestive, Circulatory) conditions out of the 21 identified in the observations. And Circulatory and Musculoskeletal conditions tend to produce more hours of absence.
+
+Being Social Drinker seems associated with the medical conditions that produce more hours of absence, so Drinking should be a variable to consider in the action plan.
+
+In terms os seasonality, seems that there are more prevalence of being absent during Winter and Spring, specifically for the high Medical Risk group.
+
+The most absent population seems to be in the non-professional roles based on the prevalence of Education Level.
+
+Lastly, regardless the Medical Risk, having 2 to 4 children seems associated to more hours absent in general. So this is a topic, the company should dig more to offer support to employees with kids.
+
+#### Recommendations
+
+Based on these conclusions, there are some actions recommended that we can define to reduce the absence hours, here some suggestions:
+
+1. Deploy wellness campaigns focusing on:
+
+- Physical activities and healthy diet to have a positive impact on Circulatory conditions.
+
+- Implement a cmpaign to estimulate active pauses and stretching to prevent musculoskeletal illness. This might include physical therapy excersices.
+
+- Explain the influence of drinking alcohol in the Health in general. 
+
+These campaigns should be more intense in Winter and Spring.
+
+2. Define and deploy a paid time off oriented to care givers in the need of taking care of their Children.
+
+
+## Reflection
+
+This project was challenging mostly due to lack of public data related to companies/employees, I found several fake dataset, but not too much real data.
+
+Then, and related to the above, the datasets related to employees does not contain very relevant information like salary/wages. This is a very sensitive information and the same time critical to analyze patterns.
+
+On the other hand I learned from this dataset and based on my own experience in Organizational environments that employee's data in general are heavy in categorical type of data. So it require the use of a lot of tables and it is challenging to explore the data with visualization.
+
+On the technical (R) side, I learned that there are multiple ways to work with the data, many packages, sometimes conflict between packages, etc. There is a lot to learn with R.
+
+At the beginning this course, I was wondering why not using traditional statistics packages (SPSS, etc), and now I realize that R is certainly super powerful tool to analyze and communicate stories with data!
+
+The most challenging part of this project and the course in general, for me, was the need to learn a new programming language, having in mind what to do but the difficulty to find the "language" to create it in R was the most difficult part.
+
+Lastly, in terms of next steps in this project, should be trying to confirm with specific statistics some of the hypothesis created here based on the exploration and visualization of the data.
+
+Also, and assuming that I can have access to more data in this company, I would try to get key additional information like Gender, Salary, Department, Performance rating,  turnover, or engagement score if avaialble. In particular grouping data by department could be very interesting as sometimes the absence is a symptom of the work environment.
+
+
+## Bibliography
+
+
+Dataset source: https://www.kaggle.com/datasets/tonypriyanka2913/employee-absenteeism
+
+Pizam, A. & Thornburg, S. (2000). Absenteeism and voluntary turnover in Central Florida hotels: a pilot study. International Journal of Hospitality Management, Volume 19, Issue 2. https://doi.org/10.1016/S0278-4319(00)00011-6
+
+
+Henkerson, M. & Persson, M. (2004). The Effects on Sick Leave of Changes in the Sickness Insurance System. Journal of Labor Economics , Vol. 22, No. 1. https://www.jstor.org/stable/10.1086/380404
+
+
+
