@@ -12,6 +12,7 @@ format:
 categories:
   - challenge_2
   - railroad
+  - question
 ---
 
 ```{r}
