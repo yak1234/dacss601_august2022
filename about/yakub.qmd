@@ -1,11 +1,11 @@
 ---
 title: "Yakub Rabiutheen"
-image: images/yakub.jpeg
+image: images/yakub.jfif
 about:
   template: solana
   image-width: 15em
   image-shape: round
-  image: images/yakub.jpeg
+  image: images/yakub.jfif
   links:
     - icon: github
       text: nesboonstra
