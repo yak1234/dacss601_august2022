@@ -27,7 +27,7 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 
 ## Reading in Data
 
-The dataset used is State County (the excel file). While reading in the data, it was also cleaned by removing the first few rows and last few rows which had unnecessary text. Since the country Canada was also present in the dataset but is a different country, it has been removed as well.
+The dataset used is State County (the excel file). While reading in the data, it was also cleaned by removing the first few rows and last few rows which had unnecessary text. Since the country Canada was also present in the last row of the dataset but is a different country, it has been removed as well.
 
 ```{r}
 library(readr)
