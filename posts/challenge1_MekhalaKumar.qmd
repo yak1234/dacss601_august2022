@@ -1,6 +1,6 @@
 ---
 title: "Challenge 1 Instructions"
-author: "Mekhala Kumar"
+author: "Meredith Rolfe"
 desription: "Reading in data and creating a post"
 date: "08/15/2022"
 format:
@@ -27,10 +27,10 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 ```{r}
 #1st Dataset Railroad_2012_clean_county
 library(readr)
-railroad_2012_clean_county <- read_csv("_data/railroad_2012_clean_county.csv")
+railroad_2012_clean_county <- read_csv("posts/_data/railroad_2012_clean_county.csv")
 view(railroad_2012_clean_county)
 #2nd Dataset birds
-birds <- read_csv("_data/birds.csv")
+birds <- read_csv("posts/_data/birds.csv")
 View(birds)
 ```
 

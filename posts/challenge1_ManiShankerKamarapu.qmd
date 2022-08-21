@@ -48,6 +48,10 @@ Read in one (or more) of the following data sets, using the correct R package an
 # Loading `readxl` package
 library(readxl)
 wild_bird <- read_xlsx("_data/wild_bird_data.xlsx")
+<<<<<<< HEAD
+class
+=======
+>>>>>>> a4c688a9dabdc7d330096732e2cb8d12fe6268db
 # View the dataset
 wild_bird
 

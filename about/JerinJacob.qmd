@@ -10,7 +10,6 @@ about:
     - icon: github
       text: Github
       href: https://github.com/jerin248486
-      
 ---
 
 ## Education/Work Background
